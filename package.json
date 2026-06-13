@@ -1,0 +1,35 @@
+{
+  "name": "rentcar-production-v3",
+  "version": "1.0.0",
+  "description": "Production-oriented RentCar system with SEO, legal pages, security, backups, logs, tests and deploy docs.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "seed": "node scripts/seed.js",
+    "reset-db": "node scripts/reset-db.js",
+    "test": "node tests/smoke.test.js",
+    "health": "node scripts/health-check.js",
+    "backup": "node scripts/backup-db.js",
+    "audit:local": "node scripts/local-audit.js",
+    "prod": "NODE_ENV=production node backend/server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "sqlite3": "^5.1.7",
+    "morgan": "^1.10.0",
+    "express-rate-limit": "^7.4.0",
+    "compression": "^1.7.4",
+    "nodemailer": "^6.9.14",
+    "cookie-parser": "^1.4.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
