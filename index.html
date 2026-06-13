@@ -3,62 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>RentCar Admin</title>
-  <link rel="stylesheet" href="/admin-assets/css/admin.css">
+  <title>RentCar Premium | Araç Kiralama</title>
+  <meta name="description" content="Premium araç kiralama, SUV, lüks, elektrikli ve ekonomik araç seçenekleri.">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-  <aside>
-    <h2>RENTCAR ADMIN</h2>
-    <button onclick="Admin.tab('dashboard')">Dashboard</button>
-    <button onclick="Admin.tab('cars')">Araçlar</button>
-    <button onclick="Admin.tab('reservations')">Rezervasyonlar</button>
-    <button onclick="Admin.tab('users')">Kullanıcılar</button>
-    <a href="/">Siteye Dön</a>
-  </aside>
-  <main>
-    <section id="loginPanel" class="login-panel">
-      <h1>Admin Giriş</h1>
-      <input id="adminEmail" value="admin@rentcar.com">
-      <input id="adminPassword" type="password" value="admin123">
-      <button onclick="Admin.login()">Giriş Yap</button>
-    </section>
-    <section id="dashboard" class="page hidden"></section>
-    <section id="cars" class="page hidden">
-      <h1>Araç Yönetimi</h1>
-      <div class="form-grid">
-        <input id="carId" type="hidden">
-        <input id="brand" placeholder="Marka">
-        <input id="model" placeholder="Model">
-        <input id="title" placeholder="Başlık">
-        <input id="category" placeholder="Kategori">
-        <input id="price_daily" placeholder="Günlük fiyat">
-        <input id="price_weekly" placeholder="Haftalık fiyat">
-        <input id="price_monthly" placeholder="Aylık fiyat">
-        <input id="year" placeholder="Yıl">
-        <input id="fuel" placeholder="Yakıt">
-        <input id="transmission" placeholder="Vites">
-        <input id="seats" placeholder="Koltuk">
-        <input id="doors" placeholder="Kapı">
-        <input id="color" placeholder="Renk">
-        <input id="image_url" placeholder="Fotoğraf URL">
-        <input id="deposit" placeholder="Depozito">
-        <input id="status" placeholder="Durum">
-        <input id="featured" placeholder="Öne çıkan 1/0">
-        <textarea id="description" placeholder="Açıklama"></textarea>
-        <button onclick="Admin.saveCar()">Kaydet</button>
+  <nav class="navbar">
+    <a class="logo" href="/">RENT<span>CAR</span></a>
+    <div class="nav-links">
+      <a href="#cars">Araçlar</a>
+      <a href="#how">Nasıl Çalışır</a>
+      <a href="#contact">İletişim</a>
+      <a href="/admin">Admin</a>
+    </div>
+    <button class="btn ghost" onclick="Auth.open()">Giriş / Kayıt</button>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Premium Rent A Car Platformu</p>
+      <h1>Lüks, SUV ve Ekonomik Araçları Dakikalar İçinde Kirala</h1>
+      <p>Admin panelli, rezervasyon sistemli, WhatsApp destekli gerçek araç kiralama sistemi.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#cars">Araçları Gör</a>
+        <a class="btn whatsapp" target="_blank" href="https://wa.me/16395697826">WhatsApp</a>
       </div>
-      <table><thead><tr><th>Foto</th><th>Araç</th><th>Fiyat</th><th>Durum</th><th>İşlem</th></tr></thead><tbody id="carRows"></tbody></table>
+    </div>
+    <form class="search-card" onsubmit="Cars.search(event)">
+      <label>Konum<input id="searchLocation" placeholder="İstanbul Havalimanı"></label>
+      <label>Alış<input id="pickupDate" type="datetime-local"></label>
+      <label>İade<input id="returnDate" type="datetime-local"></label>
+      <button class="btn primary">Ara</button>
+    </form>
+  </header>
+
+  <main>
+    <section id="cars" class="section">
+      <div class="section-head">
+        <p class="eyebrow">Araç Filosu</p>
+        <h2>Uygun Araçları Seç</h2>
+      </div>
+      <div class="toolbar">
+        <button onclick="Cars.load('')">Tümü</button>
+        <button onclick="Cars.load('SUV')">SUV</button>
+        <button onclick="Cars.load('Lüks')">Lüks</button>
+        <button onclick="Cars.load('Ekonomi')">Ekonomi</button>
+        <button onclick="Cars.load('Elektrikli')">Elektrikli</button>
+        <input id="carSearch" oninput="Cars.searchText()" placeholder="Araç ara...">
+      </div>
+      <div id="carsGrid" class="car-grid"></div>
     </section>
-    <section id="reservations" class="page hidden">
-      <h1>Rezervasyonlar</h1>
-      <table><thead><tr><th>No</th><th>Müşteri</th><th>Araç</th><th>Tutar</th><th>Durum</th><th>İşlem</th></tr></thead><tbody id="reservationRows"></tbody></table>
+
+    <section id="how" class="section dark">
+      <div class="section-head"><p class="eyebrow">Süreç</p><h2>3 Adımda Rezervasyon</h2></div>
+      <div class="steps">
+        <article><b>1</b><h3>Araç Seç</h3><p>Filtrele, fiyatları karşılaştır.</p></article>
+        <article><b>2</b><h3>Bilgi Gir</h3><p>Tarih, lokasyon ve iletişim bilgilerini gir.</p></article>
+        <article><b>3</b><h3>Onay Al</h3><p>Admin panelinden rezervasyon takip edilir.</p></article>
+      </div>
     </section>
-    <section id="users" class="page hidden">
-      <h1>Kullanıcılar</h1>
-      <table><thead><tr><th>Ad</th><th>E-posta</th><th>Rol</th><th>Durum</th></tr></thead><tbody id="userRows"></tbody></table>
+
+    <section id="contact" class="section">
+      <div class="contact-card">
+        <h2>WhatsApp Destek</h2>
+        <p>+1 (639) 569-7826</p>
+        <a class="btn whatsapp" target="_blank" href="https://wa.me/16395697826">Hemen Yaz</a>
+      </div>
     </section>
   </main>
+
+  <div id="authModal" class="modal"></div>
+  <div id="reservationModal" class="modal"></div>
+  <a class="floating-wp" target="_blank" href="https://wa.me/16395697826"><i class="fab fa-whatsapp"></i></a>
+
   <script src="/assets/js/api.js"></script>
-  <script src="/admin-assets/js/admin.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/cars.js"></script>
+  <script src="/assets/js/reservations.js"></script>
+  <script src="/assets/js/main.js"></script>
 </body>
 </html>
+
+<script src="/assets/js/cookie-consent.js"></script>
