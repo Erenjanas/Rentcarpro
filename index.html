@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>RentCar Admin</title>
+  <link rel="stylesheet" href="/admin-assets/css/admin.css">
+</head>
+<body>
+  <aside>
+    <h2>RENTCAR ADMIN</h2>
+    <button onclick="Admin.tab('dashboard')">Dashboard</button>
+    <button onclick="Admin.tab('cars')">Araçlar</button>
+    <button onclick="Admin.tab('reservations')">Rezervasyonlar</button>
+    <button onclick="Admin.tab('users')">Kullanıcılar</button>
+    <a href="/">Siteye Dön</a>
+  </aside>
+  <main>
+    <section id="loginPanel" class="login-panel">
+      <h1>Admin Giriş</h1>
+      <input id="adminEmail" value="admin@rentcar.com">
+      <input id="adminPassword" type="password" value="admin123">
+      <button onclick="Admin.login()">Giriş Yap</button>
+    </section>
+    <section id="dashboard" class="page hidden"></section>
+    <section id="cars" class="page hidden">
+      <h1>Araç Yönetimi</h1>
+      <div class="form-grid">
+        <input id="carId" type="hidden">
+        <input id="brand" placeholder="Marka">
+        <input id="model" placeholder="Model">
+        <input id="title" placeholder="Başlık">
+        <input id="category" placeholder="Kategori">
+        <input id="price_daily" placeholder="Günlük fiyat">
+        <input id="price_weekly" placeholder="Haftalık fiyat">
+        <input id="price_monthly" placeholder="Aylık fiyat">
+        <input id="year" placeholder="Yıl">
+        <input id="fuel" placeholder="Yakıt">
+        <input id="transmission" placeholder="Vites">
+        <input id="seats" placeholder="Koltuk">
+        <input id="doors" placeholder="Kapı">
+        <input id="color" placeholder="Renk">
+        <input id="image_url" placeholder="Fotoğraf URL">
+        <input id="deposit" placeholder="Depozito">
+        <input id="status" placeholder="Durum">
+        <input id="featured" placeholder="Öne çıkan 1/0">
+        <textarea id="description" placeholder="Açıklama"></textarea>
+        <button onclick="Admin.saveCar()">Kaydet</button>
+      </div>
+      <table><thead><tr><th>Foto</th><th>Araç</th><th>Fiyat</th><th>Durum</th><th>İşlem</th></tr></thead><tbody id="carRows"></tbody></table>
+    </section>
+    <section id="reservations" class="page hidden">
+      <h1>Rezervasyonlar</h1>
+      <table><thead><tr><th>No</th><th>Müşteri</th><th>Araç</th><th>Tutar</th><th>Durum</th><th>İşlem</th></tr></thead><tbody id="reservationRows"></tbody></table>
+    </section>
+    <section id="users" class="page hidden">
+      <h1>Kullanıcılar</h1>
+      <table><thead><tr><th>Ad</th><th>E-posta</th><th>Rol</th><th>Durum</th></tr></thead><tbody id="userRows"></tbody></table>
+    </section>
+  </main>
+  <script src="/assets/js/api.js"></script>
+  <script src="/admin-assets/js/admin.js"></script>
+</body>
+</html>
